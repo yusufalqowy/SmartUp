@@ -6,6 +6,7 @@ import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/dimens.dart';
 import 'package:smartup/core/values/enums.dart';
+import 'package:smartup/core/values/texts.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_degree.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_gender.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
@@ -31,7 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Daftar Akun"),
+        title: const Text(Texts.textDaftarAkun),
         backgroundColor: colorScheme(context).primaryContainer,
       ),
       body: SingleChildScrollView(
@@ -41,25 +42,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Yuk isi data diri", style: TextStyles.highlightText,),
+                  const Text(Texts.textYukIsiData, style: TextStyles.highlightText,),
                   const Gap(
                     h: Dimens.d16,
                   ),
                   const Text(
-                    "Nama Lengkap",
+                    Texts.textNamaLengkap,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                    name: "Nama Lengkap",
+                    name: Texts.textNamaLengkap,
                     decoration: InputDecoration(
                       fillColor:
                           colorScheme(context).surfaceVariant.withOpacity(0.4),
                       filled: true,
                       prefixIcon: const Icon(Icons.person),
-                      hintText: "Masukan nama lengkap",
+                      hintText: Texts.textHintNamaLengkap,
                       hintStyle: TextStyles.body2Text,
                       focusedBorder: null,
                       contentPadding: const EdgeInsets.all(Dimens.d8),
@@ -69,19 +70,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     textCapitalization: TextCapitalization.words,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: FormBuilderValidators.required(
-                        errorText: "Field tidak boleh kosong!"),
+                    validator: FormBuilderValidators.required(errorText: Texts.textErrorRequired),
                   ),
                   const Gap(),
                   const Text(
-                    "Email",
+                    Texts.textEmail,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Email",
+                      name: Texts.textEmail,
                       onChanged: (text) =>
                           genderController.text = text.toString(),
                       keyboardType: TextInputType.emailAddress,
@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.mail),
-                        hintText: "Masukan email",
+                        hintText: Texts.textHintEmail,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -103,20 +103,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                            errorText: "Field tidak boleh kosong!"),
+                            errorText: Texts.textErrorRequired),
                         FormBuilderValidators.email(
-                            errorText: "Email tidak valid!"),
+                            errorText: Texts.textErrorEmail),
                       ])),
                   const Gap(),
                   const Text(
-                    "Jenis Kelamin",
+                    Texts.textJenisKelamin,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                    name: "Jenis Kelamin",
+                    name: Texts.textJenisKelamin,
                     controller: genderController,
                     readOnly: true,
                     onTap: () async {
@@ -136,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           colorScheme(context).surfaceVariant.withOpacity(0.4),
                       filled: true,
                       prefixIcon: const Icon(Icons.people_alt),
-                      hintText: "Pilih jenis kelamin",
+                      hintText: Texts.textHintJenisKelamin,
                       hintStyle: TextStyles.body2Text,
                       labelStyle: TextStyles.body2Text,
                       focusedBorder: null,
@@ -146,18 +146,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     validator: FormBuilderValidators.required(
-                        errorText: "Silahkan pilih jenis kelamin!"),
+                        errorText: Texts.textErrorRequired),
                   ),
                   const Gap(),
                   const Text(
-                    "Jenjang",
+                    Texts.textJenjang,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Jenjang",
+                      name: Texts.textJenjang,
                       onTap: () async {
                         Degree? degree = await Get.bottomSheet(BottomSheetSelectDegree(initDegree: selectedDegree,), backgroundColor: colorScheme(context).surface);
                         if(degree != null){
@@ -173,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.grade),
-                        hintText: "Pilih jenjang sekolah",
+                        hintText: Texts.textHintJenjang,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -185,25 +185,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                            errorText: "Silahkan pilih jenjang pendidikan!"),
+                            errorText: Texts.textErrorRequired),
                       ])),
                   const Gap(),
                   const Text(
-                    "Sekolah",
+                    Texts.textSekolah,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Sekolah",
+                      name: Texts.textSekolah,
                       decoration: InputDecoration(
                         fillColor: colorScheme(context)
                             .surfaceVariant
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.school),
-                        hintText: "Masukan nama sekolah",
+                        hintText: Texts.textHintSekolah,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -215,25 +215,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                            errorText: "Field tidak boleh kosong!")
+                            errorText: Texts.textErrorRequired)
                       ])),
                   const Gap(),
                   const Text(
-                    "Kelas",
+                    Texts.textKelas,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Kelas",
+                      name: Texts.textKelas,
                       decoration: InputDecoration(
                         fillColor: colorScheme(context)
                             .surfaceVariant
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.class_),
-                        hintText: "Masukan nama kelas",
+                        hintText: Texts.textHintkelas,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -244,7 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.required(
-                          errorText: "Field tidak boleh kosong!")),
+                          errorText: Texts.textErrorRequired)),
                   const Gap(
                     h: Dimens.d32,
                   ),
@@ -253,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: FilledButton(
                         onPressed: () {},
                         child: const Text(
-                          "Daftar",
+                          Texts.textBtnDaftar,
                         ),
                       ))
                 ],

@@ -6,6 +6,7 @@ import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/dimens.dart';
 import 'package:smartup/core/values/enums.dart';
+import 'package:smartup/core/values/texts.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_gender.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 
@@ -25,7 +26,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit Akun"),
+        title: const Text(Texts.textEditAkun),
         backgroundColor: colorScheme(context).primaryContainer,
       ),
       body: SingleChildScrollView(
@@ -66,20 +67,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     h: Dimens.d20,
                   ),
                   const Text(
-                    "Nama Lengkap",
+                    Texts.textNamaLengkap,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                    name: "Nama Lengkap",
+                    name: Texts.textNamaLengkap,
                     decoration: InputDecoration(
                       fillColor:
                           colorScheme(context).surfaceVariant.withOpacity(0.4),
                       filled: true,
                       prefixIcon: const Icon(Icons.person),
-                      hintText: "Masukan nama lengkap",
+                      hintText: Texts.textHintNamaLengkap,
                       hintStyle: TextStyles.body2Text,
                       focusedBorder: null,
                       contentPadding: const EdgeInsets.all(Dimens.d8),
@@ -90,18 +91,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     textCapitalization: TextCapitalization.words,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: FormBuilderValidators.required(
-                        errorText: "Field tidak boleh kosong!"),
+                        errorText: Texts.textErrorRequired),
                   ),
                   const Gap(),
                   const Text(
-                    "Email",
+                    Texts.textEmail,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Email",
+                      name: Texts.textEmail,
                       onChanged: (text) => genderController.text = text.toString(),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -110,7 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.mail),
-                        hintText: "Masukan email",
+                        hintText: Texts.textHintEmail,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -122,20 +123,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                            errorText: "Field tidak boleh kosong!"),
+                            errorText: Texts.textErrorRequired),
                         FormBuilderValidators.email(
-                            errorText: "Email tidak valid!"),
+                            errorText: Texts.textErrorEmail),
                       ])),
                   const Gap(),
                   const Text(
-                    "Jenis Kelamin",
+                    Texts.textJenisKelamin,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                    name: "Jenis Kelamin",
+                    name: Texts.textJenisKelamin,
                     controller: genderController,
                     readOnly: true,
                     onTap: () async {
@@ -155,7 +156,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           colorScheme(context).surfaceVariant.withOpacity(0.4),
                       filled: true,
                       prefixIcon: const Icon(Icons.people_alt),
-                      hintText: "Pilih jenis kelamin",
+                      hintText: Texts.textHintJenisKelamin,
                       hintStyle: TextStyles.body2Text,
                       labelStyle: TextStyles.body2Text,
                       focusedBorder: null,
@@ -165,25 +166,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     validator: FormBuilderValidators.required(
-                        errorText: "Silahkan pilih jenis kelamin!"),
+                        errorText: Texts.textErrorRequired),
                   ),
                   const Gap(),
                   const Text(
-                    "Kelas",
+                    Texts.textKelas,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Kelas",
+                      name: Texts.textKelas,
                       decoration: InputDecoration(
                         fillColor: colorScheme(context)
                             .surfaceVariant
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.class_),
-                        hintText: "Masukan nama kelas",
+                        hintText: Texts.textHintkelas,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -194,24 +195,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.required(
-                          errorText: "Field tidak boleh kosong!")),
+                          errorText: Texts.textErrorRequired)),
                   const Gap(),
                   const Text(
-                    "Jenjang",
+                    Texts.textJenjang,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Jenjang",
+                      name: Texts.textJenjang,
                       decoration: InputDecoration(
                         fillColor: colorScheme(context)
                             .surfaceVariant
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.show_chart),
-                        hintText: "Pilih jenjang sekolah",
+                        hintText: Texts.textHintJenjang,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -223,25 +224,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                            errorText: "Field tidak boleh kosong!"),
+                            errorText: Texts.textErrorRequired),
                       ])),
                   const Gap(),
                   const Text(
-                    "Sekolah",
+                    Texts.textSekolah,
                     style: TextStyles.title,
                   ),
                   const Gap(
                     h: Dimens.d8,
                   ),
                   FormBuilderTextField(
-                      name: "Sekolah",
+                      name: Texts.textSekolah,
                       decoration: InputDecoration(
                         fillColor: colorScheme(context)
                             .surfaceVariant
                             .withOpacity(0.4),
                         filled: true,
                         prefixIcon: const Icon(Icons.school),
-                        hintText: "Masukan nama sekolah",
+                        hintText: Texts.textHintSekolah,
                         hintStyle: TextStyles.body2Text,
                         labelStyle: TextStyles.body2Text,
                         focusedBorder: null,
@@ -253,7 +254,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(
-                            errorText: "Field tidak boleh kosong!")
+                            errorText: Texts.textErrorRequired)
                       ])),
                   const Gap(
                     h: Dimens.d32,
@@ -262,7 +263,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       width: double.maxFinite,
                       child: FilledButton(
                         onPressed: () {},
-                        child: const Text("Perbarui Data",),
+                        child: const Text(Texts.textBtnPerbaruiData,),
                       ))
                 ],
               ))),

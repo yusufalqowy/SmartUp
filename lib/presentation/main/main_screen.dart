@@ -49,12 +49,12 @@ class MainScreen extends GetView<MainController> {
           destinations: [
             NavigationDestination(
               icon: SvgIconAsset(assetName: ImageAssets.icHomeInActive, color: colorScheme(context).onSurface,),
-              label: "Home",
+              label: Texts.textHome,
               selectedIcon: SvgIconAsset(assetName: ImageAssets.icHomeActive, color: colorScheme(context).onSurface,),
             ),
             NavigationDestination(
                 icon: SvgIconAsset(assetName: ImageAssets.icProfileInActive, color: colorScheme(context).onSurface,),
-                label: "Profile",
+                label: Texts.textProfile,
                 selectedIcon: SvgIconAsset(assetName: ImageAssets.icProfileActive, color: colorScheme(context).onSurface,),
             ),
           ],

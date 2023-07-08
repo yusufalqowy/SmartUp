@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/dimens.dart';
+import 'package:smartup/core/values/texts.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_theme.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 import 'package:smartup/route/routes.dart';
@@ -17,7 +18,7 @@ class ProfileScreen extends GetView<ProfileController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Akun Saya"),
+        title: const Text(Texts.textAkunSaya),
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
@@ -158,7 +159,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     children: [
                       Icon(Icons.theater_comedy_outlined, color: colorScheme(context).primary,),
                       const Gap(w: Dimens.d16,),
-                      Text("Theme", style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),)
+                      Text(Texts.textTema, style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),)
                     ],
                   ),
                 ),
@@ -177,7 +178,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     children: [
                       const Icon(Icons.logout_outlined, color: Colors.red,),
                       const Gap(w: Dimens.d16,),
-                      Text("Logout", style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),)
+                      Text(Texts.textLogout, style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),)
                     ],
                   ),
                 ),

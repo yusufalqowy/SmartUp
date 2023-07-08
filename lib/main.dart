@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smartup/core/utils/theme_service.dart';
+import 'package:smartup/core/values/colors.dart';
 import 'package:smartup/route/pages.dart';
 import 'package:smartup/route/routes.dart';
 
@@ -13,8 +14,8 @@ void main() async{
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static final _defaultLightColorScheme = ThemeData.light(useMaterial3: false).colorScheme.copyWith(primary: const Color(0xFF357AD4), secondary: const Color(0xFF27B1E0), );
-  static  final _defaultDarkColorScheme = ThemeData.dark(useMaterial3: false).colorScheme;
+  static final _defaultLightColorScheme = ThemeData.light(useMaterial3: false).colorScheme.copyWith(primary: AppColors.primary, secondary: AppColors.secondary,);
+  static  final _defaultDarkColorScheme = ThemeData.light(useMaterial3: false).colorScheme.copyWith(primary: AppColors.primary, secondary: AppColors.secondary,);
 
   // This widget is the root of your application.
   @override
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeService().theme,
-              initialRoute: Routes.login,
+              initialRoute: Routes.splash,
               getPages: Pages.pages,
             ),
           );

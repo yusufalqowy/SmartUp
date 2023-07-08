@@ -35,9 +35,9 @@ class LoginScreen extends GetView<LoginController>{
             ),
             Column(
               children: [
-                SignInButton(buttonType: ButtonType.googleDark, onPressed: (){Get.toNamed(Routes.main);}, btnText: "Masuk dengan Google", width: double.maxFinite, padding: Dimens.d16),
+                SignInButton(buttonType: ButtonType.googleDark, onPressed: (){Get.toNamed(Routes.main);}, btnText: Texts.textBtnMasukDenganGoogle, width: double.maxFinite, padding: Dimens.d16),
                 const Gap(),
-                SignInButton(buttonType: ButtonType.appleDark, onPressed: (){Get.toNamed(Routes.register);}, btnText: "Masuk dengan Apple ID", width: double.maxFinite, padding: Dimens.d16),
+                SignInButton(buttonType: ButtonType.appleDark, onPressed: (){Get.toNamed(Routes.register);}, btnText: Texts.textBtnMasukDenganApple, width: double.maxFinite, padding: Dimens.d16),
                 const Gap(h: Dimens.d48,)
               ],
             )
