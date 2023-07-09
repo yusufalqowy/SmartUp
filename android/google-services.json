@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "314948610337",
+    "project_id": "smartup-9c3e1",
+    "storage_bucket": "smartup-9c3e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314948610337:android:9f4aabc4f2f22daae0f660",
+        "android_client_info": {
+          "package_name": "id.sup.smartup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314948610337-s2jfqp5qlpcm34t76dpig51kakcu538k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.sup.smartup",
+            "certificate_hash": "7399216df947fed60ddec62b00d72df4954dfdc1"
+          }
+        },
+        {
+          "client_id": "314948610337-q25e06s54hfph43cdnklgbnnpgfld70a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLPQaXKWsYrBkEBnhBeTemEA-SOjd8uGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314948610337-agoitdh4vmo93ss3tk0a5kud3ln370t0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "314948610337-47ncr0vqlk4r7868cg7kekd2na52u41u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.sup.smartup"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
