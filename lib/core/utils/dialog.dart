@@ -7,6 +7,8 @@ abstract class LoadingDialog{
   }
 
   static dismissLoading(){
-    Get.back();
+    if(Get.isDialogOpen == true){
+      Get.back();
+    }
   }
 }

@@ -8,4 +8,7 @@ abstract class ImageAssets{
   static const imgLoginBanner = "assets/images/img_banner_login.svg";
   static const icDiscussion = "assets/images/ic_discussion.svg";
   static const icLogoSmartUp = "assets/images/ic_logo_smart_up.svg";
+  static const imgRegister = "assets/images/img_register.svg";
+  static const imgSorry = "assets/images/img_sorry.svg";
+  static const imgSuccess = "assets/images/img_success.svg";
 }

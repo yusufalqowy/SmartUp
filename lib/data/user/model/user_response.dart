@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserResponse {
   int? status;
   String? message;
@@ -72,5 +74,47 @@ class UserData {
     data['user_status'] = userStatus;
     data['kelas'] = kelas;
     return data;
+  }
+
+  UserData.fromRawJson(String? rawJson) {
+    if(rawJson != null){
+      final Map<String, dynamic> json = jsonDecode(rawJson);
+      iduser = json['iduser'];
+      userName = json['user_name'];
+      userEmail = json['user_email'];
+      userFoto = json['user_foto'];
+      userAsalSekolah = json['user_asal_sekolah'];
+      dateCreate = json['date_create'];
+      jenjang = json['jenjang'];
+      userGender = json['user_gender'];
+      userStatus = json['user_status'];
+      kelas = json['kelas'];
+    }
+  }
+
+  String encodeToJson(){
+    return jsonEncode(toJson());
+  }
+}
+
+extension ExtUserData on UserData {
+  static UserData fromJson(String rawJson) {
+    final Map<String, dynamic> map = jsonDecode(rawJson);
+    return UserData(
+      iduser: map['iduser'],
+      userName: map['user_name'],
+      userEmail: map['user_email'],
+      userFoto: map['user_foto'],
+      userAsalSekolah: map['user_asal_sekolah'],
+      dateCreate: map['date_create'],
+      jenjang: map['jenjang'],
+      userGender: map['user_gender'],
+      userStatus: map['user_status'],
+      kelas: map['kelas'],
+    );
+  }
+
+  static String encodeToJson(UserData userData){
+    return jsonEncode(userData.toJson());
   }
 }

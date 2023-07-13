@@ -23,9 +23,6 @@ class UserApiServiceImpl implements UserApiService{
       var response = await dioClient.get(Urls.users, queryParameters: queryParam);
       if(response.statusCode == 200){
         var userResponse = UserResponse.fromJson(response.data);
-        if(userResponse.status == 0){
-          return NetworkResponse.error(message: userResponse.message);
-        }
         return NetworkResponse.success(userResponse.data);
       }else{
         return NetworkResponse.error(message: response.statusMessage);
@@ -56,7 +53,7 @@ class UserApiServiceImpl implements UserApiService{
   @override
   Future<NetworkResponse<UserData>> updateUser({required UserBody requestBody}) async {
     try{
-      var response = await dioClient.post(Urls.userRegister, body: requestBody);
+      var response = await dioClient.post(Urls.userUpdate, body: requestBody.toMap());
       if(response.statusCode == 200){
         var userResponse = UserResponse.fromJson(response.data);
         if(userResponse.status == 0){

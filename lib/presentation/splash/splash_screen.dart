@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:smartup/core/values/colors.dart';
 import 'package:smartup/core/values/images.dart';
+import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/route/routes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 5000));
     if (context.mounted) {
-      Get.offAllNamed(Routes.login);
+      String? userData = Get.find<GetStorage>().read(Keys.userData);
+      if(userData != null && userData.isNotEmpty){
+        Get.offAllNamed(Routes.main);
+      }else{
+        Get.offAllNamed(Routes.login);
+      }
     }
   }
   @override

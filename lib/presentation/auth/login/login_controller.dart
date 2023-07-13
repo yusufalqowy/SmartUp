@@ -13,6 +13,7 @@ class LoginController extends GetxController{
   LoginController({required this.firebaseAuthService, required this.userRepository});
 
   Rx<NetworkResponse<UserData>> login = Rx(NetworkResponse.init());
+  Rx<User?> userEmail = Rx(null);
 
   /// Steps:
   /// 1. Sign In With Google
@@ -20,14 +21,18 @@ class LoginController extends GetxController{
   /// 3. Check isUserRegistered()
   Future<void> onGoogleSignIn() async {
     User? user = await firebaseAuthService.signInWithGoogle();
+    userEmail(user);
+    update();
     if (user != null) {
       await isUserRegistered();
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut({bool isGotoLogin = true}) async {
     await firebaseAuthService.signOut();
-    Get.offAllNamed(Routes.login);
+    if(isGotoLogin){
+      Get.offAllNamed(Routes.login);
+    }
   }
 
   Future<void> isUserRegistered() async {

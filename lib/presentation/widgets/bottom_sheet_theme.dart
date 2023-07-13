@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/utils/app_size.dart';
 import 'package:smartup/core/utils/theme_service.dart';
-import 'package:smartup/core/values/enums.dart';
+import 'package:smartup/core/values/dimens.dart';
 
-import '../../core/styles/colors.dart';
-import '../../core/values/dimens.dart';
 import 'gap.dart';
 
 class BottomSheetSelectTheme extends StatefulWidget {
-  final Gender initGender;
-  const BottomSheetSelectTheme({super.key, this.initGender = Gender.none});
+  const BottomSheetSelectTheme({super.key});
 
   @override
   State<BottomSheetSelectTheme> createState() => _BottomSheetSelectThemeState();

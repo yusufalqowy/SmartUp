@@ -2,7 +2,7 @@ class UserBody {
   final String fullName;
   final String email;
   final String schoolName;
-  final String schoolLevel;
+  final String? schoolLevel;
   final String schoolGrade;
   final String gender;
   final String? photoUrl;
@@ -11,7 +11,7 @@ class UserBody {
     required this.fullName,
     required this.email,
     required this.schoolName,
-    required this.schoolLevel,
+    this.schoolLevel,
     required this.schoolGrade,
     required this.gender,
     this.photoUrl,

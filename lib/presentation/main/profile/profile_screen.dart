@@ -1,17 +1,43 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/dimens.dart';
+import 'package:smartup/core/values/images.dart';
+import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/core/values/texts.dart';
+import 'package:smartup/data/user/model/user_response.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_theme.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 import 'package:smartup/route/routes.dart';
 
 import 'profile_controller.dart';
 
-class ProfileScreen extends GetView<ProfileController> {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  var storage = Get.find<GetStorage>();
+  UserData? _userData;
+  @override
+  void initState() {
+    setState(() {
+      _userData = UserData.fromRawJson(storage.read(Keys.userData));
+    });
+    storage.listenKey(Keys.userData, (value) {
+      setState(() {
+        _userData = UserData.fromRawJson(value);
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +64,21 @@ class ProfileScreen extends GetView<ProfileController> {
                       clipBehavior: Clip.none,
                       alignment: Alignment.bottomCenter,
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                           radius: 50,
-                          child: Icon(Icons.person),
+                          backgroundImage: CachedNetworkImageProvider(_userData?.userFoto??""),
                         ),
                         Positioned(
                           top: 70,
                           child: IconButton(
                               onPressed: () { Get.toNamed(Routes.editProfile);},
+
                               style: ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll(themeData(context).primaryColorDark),
-                                  shape: const MaterialStatePropertyAll(CircleBorder())),
+                                  shape: const MaterialStatePropertyAll(CircleBorder()),
+                                  elevation: const MaterialStatePropertyAll(8)
+
+                              ),
                               icon: const Icon(
                                 Icons.edit,
                                 color: Colors.white,
@@ -57,12 +87,12 @@ class ProfileScreen extends GetView<ProfileController> {
                       ],
                     ),
                     const Gap(),
-                    const Text(
-                      "Muhammad Yusuf A",
+                    Text(
+                      _userData?.userName??"",
                       style: TextStyles.title,
                     ),
-                    const Text(
-                      "081542181110",
+                    Text(
+                      _userData?.userEmail??"",
                       style: TextStyles.subTitle,
                     ),
                   ],
@@ -85,7 +115,7 @@ class ProfileScreen extends GetView<ProfileController> {
                           w: Dimens.d16,
                         ),
                         Text(
-                          "Muhammad Yusuf A",
+                          _userData?.userName??"",
                           style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -98,7 +128,7 @@ class ProfileScreen extends GetView<ProfileController> {
                           w: Dimens.d16,
                         ),
                         Text(
-                          "yusufaqwya123@gmail.com",
+                          _userData?.userEmail??"",
                           style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -111,7 +141,7 @@ class ProfileScreen extends GetView<ProfileController> {
                           w: Dimens.d16,
                         ),
                         Text(
-                          "Laki-laki",
+                          _userData?.userGender??"",
                           style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -124,7 +154,7 @@ class ProfileScreen extends GetView<ProfileController> {
                           w: Dimens.d16,
                         ),
                         Text(
-                          "XI",
+                          _userData?.kelas??"",
                           style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -137,7 +167,7 @@ class ProfileScreen extends GetView<ProfileController> {
                           w: Dimens.d16,
                         ),
                         Text(
-                          "SMA N 1",
+                          _userData?.userAsalSekolah??"",
                           style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],

@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'package:alice/alice.dart';
 import 'package:dio/dio.dart';
-import 'package:chucker_flutter/chucker_flutter.dart';
-import '../../../core/values/urls.dart';
+import 'package:smartup/core/values/urls.dart';
 
 abstract class DioClient {
   Future<Response<T>> get<T>(String url, {Map<String, dynamic>? queryParameters});
@@ -11,8 +11,8 @@ abstract class DioClient {
 
 class DioClientImpl implements DioClient {
   late Dio _dio;
-
-  DioClientImpl() {
+  final Alice alice;
+  DioClientImpl({required this.alice}) {
     _initApiClient();
   }
 
@@ -26,7 +26,7 @@ class DioClientImpl implements DioClient {
       responseType: ResponseType.json,
     );
     _dio = Dio(options)
-      ..interceptors.add(ChuckerDioInterceptor());
+      ..interceptors.add(alice.getDioInterceptor());
   }
 
   @override

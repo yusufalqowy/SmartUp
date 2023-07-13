@@ -1,13 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/utils/app_size.dart';
 import 'package:smartup/core/values/dimens.dart';
 import 'package:smartup/core/values/images.dart';
+import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/core/values/texts.dart';
+import 'package:smartup/data/user/model/user_response.dart';
 import 'package:smartup/presentation/widgets/course_item.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 import 'package:smartup/presentation/widgets/header_section.dart';
@@ -15,9 +19,26 @@ import 'package:smartup/presentation/widgets/svg_icon.dart';
 
 import 'home_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var storage = Get.find<GetStorage>();
+  UserData? _userData;
+  @override
+  void initState() {
+    setState(() {
+      _userData = UserData.fromRawJson(storage.read(Keys.userData));
+    });
+    storage.listenKey(Keys.userData, (value) {
+      _userData = UserData.fromRawJson(storage.read(Keys.userData));
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +46,16 @@ class HomeScreen extends GetView<HomeController> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Hi, Yusuf",
+              "Hi, ${_userData?.userName}",
               style: TextStyles.title,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
-            Text(
+            const Text(
               Texts.textSelamatDatang,
               style: TextStyles.subTitle,
             ),
@@ -40,14 +63,11 @@ class HomeScreen extends GetView<HomeController> {
         ),
         actions: [
           Container(
-              padding: const EdgeInsets.only(right: Dimens.d16),
-              child: IconButton.outlined(
-                onPressed: () {},
-                icon: const CircleAvatar(
-                  child: SvgIconAsset(assetName: ImageAssets.icHomeActive),
-                ),
-                padding: EdgeInsets.zero,
-              )),
+            padding: const EdgeInsets.only(right: Dimens.d16),
+            child: CircleAvatar(
+              foregroundImage: CachedNetworkImageProvider(_userData?.userFoto??""),
+            ),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -114,11 +134,11 @@ class HomeScreen extends GetView<HomeController> {
                   );
                 }),
                 options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  viewportFraction: 0.9,
-                  enlargeStrategy: CenterPageEnlargeStrategy.zoom,
-                  enlargeFactor: 1,
-                  height: 150
+                    enableInfiniteScroll: false,
+                    viewportFraction: 0.9,
+                    enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                    enlargeFactor: 1,
+                    height: 150
                 )
             )
           ],
