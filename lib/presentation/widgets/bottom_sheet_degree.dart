@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartup/core/styles/text_style.dart';
-import 'package:smartup/core/utils/app_size.dart';
 import 'package:smartup/core/utils/theme_service.dart';
 import 'package:smartup/core/values/enums.dart';
 
@@ -33,7 +32,7 @@ class _BottomSheetSelectDegreeState extends State<BottomSheetSelectDegree> {
       mainAxisSize: MainAxisSize.min,
       children: [
         const Gap(),
-        Container(height: Dimens.d8, width: 50, decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimens.d8), color: themeData(context).dividerColor),),
+        Container(height: Dimens.d6, width: 80, decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimens.d8), color: themeData(context).dividerColor),),
         const Gap(),
         const Text("Pilih Jenjang Pendidikan", style: TextStyles.highlightText,),
         const Gap(h: Dimens.d8,),

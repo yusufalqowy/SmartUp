@@ -1,5 +1,6 @@
 abstract class Dimens{
   static const d4 = 4.0;
+  static const d6 = 6.0;
   static const d8 = 8.0;
   static const d12 = 12.0;
   static const d16 = 16.0;

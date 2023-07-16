@@ -1,10 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/utils/dialog.dart';
@@ -19,9 +23,8 @@ import 'package:smartup/data/user/model/user_response.dart';
 import 'package:smartup/presentation/main/profile/edit_profile/edit_profile_controller.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_alert.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_gender.dart';
+import 'package:smartup/presentation/widgets/bottom_sheet_image_picker.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
-import 'package:smartup/route/routes.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -35,12 +38,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var selectGender = Gender.none;
   var genderController = TextEditingController();
   var storage = Get.find<GetStorage>();
+  UserData? userData;
+  String? imageUrl;
+  FirebaseStorage storageFirebase = FirebaseStorage.instance;
+
+  @override
+  void initState() {
+    userData = UserData.fromRawJson(storage.read(Keys.userData));
+    setState(() {
+      imageUrl = userData?.userFoto;
+    });
+    super.initState();
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    var userData = UserData.fromRawJson(storage.read(Keys.userData));
-    genderController.text = userData.userGender ?? "";
+
+    genderController.text = userData?.userGender ?? "";
 
     return GetBuilder<EditProfileController>(builder: (controller) {
       Future.delayed(Duration.zero, () => handleResponse(context, controller));
@@ -64,21 +79,68 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         alignment: Alignment.bottomCenter,
                         children: [
                           CircleAvatar(
-                            radius: 50,
-                            backgroundImage: CachedNetworkImageProvider(userData.userFoto ?? "",),
+                            radius: 60,
+                            backgroundImage: CachedNetworkImageProvider(imageUrl ?? "",),
                           ),
                           Positioned(
-                            top: 70,
+                            top: 90,
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.bottomSheet(BottomSheetImagePicker(
+                                      isCropImage: true,
+                                      cropAspectRatio: const [CropAspectRatioPreset.square],
+                                      imagePickerType: ImagePickerType.all,
+                                      onImageResult: (path) async {
+                                        if(path != null){
+                                          try{
+                                            var ref = storageFirebase.ref().child("images/${userData?.iduser}.png");
+                                            LoadingDialog.showLoading();
+                                            ref.putFile(File(path)).snapshotEvents.listen((event) async {
+                                              if(event.state == TaskState.success){
+                                                var url = await ref.getDownloadURL();
+                                                setState(() {
+                                                  imageUrl = url;
+                                                });
+                                                LoadingDialog.dismissLoading();
+                                              }else if(event.state == TaskState.error){
+                                                LoadingDialog.dismissLoading();
+                                                throw Exception("Gagal upload file!");
+                                              }
+                                            });
+                                          }catch(e){
+                                            LoadingDialog.dismissLoading();
+                                            Get.bottomSheet(
+                                                BottomSheetAlert(
+                                                  title: "Error",
+                                                  message: e.toString() ?? "Unknown Error",
+                                                  image: SvgPicture.asset(
+                                                    ImageAssets.imgSorry,
+                                                    fit: BoxFit.fitHeight,
+                                                    height: 150,
+                                                  ),
+                                                  negativeButton: FilledButton.tonal(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child: const Text("Tutup"),
+                                                  ),
+                                                ),
+                                                backgroundColor: colorScheme(context).surface);
+                                          }
+                                        }
+                                      }
+                                  ),
+                                    backgroundColor: colorScheme(context).surface,
+                                  );
+                                },
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                        themeData(context).primaryColorDark),
+                                        colorScheme(context).primary),
                                     shape: const MaterialStatePropertyAll(
                                         CircleBorder())),
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.photo_camera,
-                                  color: Colors.white,
+                                  color: colorScheme(context).surface,
                                 )),
                           )
                         ],
@@ -96,7 +158,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     FormBuilderTextField(
                       name: Texts.textNamaLengkap,
-                      initialValue: userData.userName,
+                      initialValue: userData?.userName,
                       decoration: InputDecoration(
                         fillColor:
                         colorScheme(context).surfaceVariant.withOpacity(0.4),
@@ -125,7 +187,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     FormBuilderTextField(
                         name: Texts.textEmail,
-                        initialValue: userData.userEmail,
+                        initialValue: userData?.userEmail,
                         keyboardType: TextInputType.emailAddress,
                         readOnly: true,
                         decoration: InputDecoration(
@@ -201,7 +263,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     FormBuilderTextField(
                         name: Texts.textKelas,
-                        initialValue: userData.kelas,
+                        initialValue: userData?.kelas,
                         decoration: InputDecoration(
                           fillColor: colorScheme(context)
                               .surfaceVariant
@@ -230,7 +292,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     FormBuilderTextField(
                         name: Texts.textSekolah,
-                        initialValue: userData.userAsalSekolah,
+                        initialValue: userData?.userAsalSekolah,
                         decoration: InputDecoration(
                           fillColor: colorScheme(context)
                               .surfaceVariant
@@ -265,7 +327,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   schoolName: _formKey.currentState!.value[Texts.textSekolah],
                                   schoolGrade: _formKey.currentState!.value[Texts.textKelas],
                                   gender: _formKey.currentState!.value[Texts.textJenisKelamin],
-                                  photoUrl: userData.userFoto,
+                                  photoUrl: imageUrl,
                               );
                               controller.updateProfile(requestBody: requestBody);
                             }

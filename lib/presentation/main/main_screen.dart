@@ -25,7 +25,7 @@ class MainScreen extends GetView<MainController> {
         resizeToAvoidBottomInset: false,
         body: IndexedStack(
           index: controller.navigationIndex.value,
-          children: [HomeScreen(), ProfileScreen()],
+          children: const [HomeScreen(), ProfileScreen()],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Column(

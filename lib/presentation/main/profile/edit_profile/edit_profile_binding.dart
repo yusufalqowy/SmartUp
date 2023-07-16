@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:smartup/data/core/services/dio_client.dart';
 import 'package:smartup/data/user/data_source/remote/user_api_service.dart';
 import 'package:smartup/data/user/repository/user_repository_impl.dart';
-import 'package:smartup/domain/repository/user_repository.dart';
-import 'package:smartup/domain/use_case/book_usecase.dart';
+import 'package:smartup/domain/user/repository/user_repository.dart';
+import 'package:smartup/domain/user/use_case/book_usecase.dart';
 
 import 'edit_profile_controller.dart';
 

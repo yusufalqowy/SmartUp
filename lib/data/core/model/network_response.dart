@@ -7,6 +7,7 @@ enum NetworkStatus{
   bool get isSuccess => this == success;
   bool get isError => this == error;
   bool get isInternetError => this == internetError;
+  bool get isLoading => this == loading;
 }
 
 class NetworkResponse<T> {

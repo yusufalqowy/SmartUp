@@ -25,7 +25,7 @@ class _BottomSheetSelectThemeState extends State<BottomSheetSelectTheme> {
       mainAxisSize: MainAxisSize.min,
       children: [
         const Gap(),
-        Container(height: Dimens.d8, width: 50, decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimens.d8), color: themeData(context).dividerColor),),
+        Container(height: Dimens.d6, width: 80, decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimens.d8), color: themeData(context).dividerColor),),
         const Gap(),
         const Text("Pilih Tema", style: TextStyles.highlightText,),
         const Gap(),

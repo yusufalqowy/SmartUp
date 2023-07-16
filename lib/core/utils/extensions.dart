@@ -1,4 +1,4 @@
-extension on String{
+extension StringExt on String{
   String capitalizeEachWord() {
     var result = this[0].toUpperCase();
     for (int i = 1; i < length; i++) {
@@ -23,5 +23,51 @@ extension on String{
       }
     }
     return result;
+  }
+
+
+}
+
+extension StringNullExt on String?{
+  bool get isNullOrEmpty{
+    if(this == null){
+      return true;
+    }else{
+      if(this!.isEmpty){
+        return true;
+      }else{
+        return false;
+      }
+    }
+  }
+
+  bool get isAcceptAnswer{
+    if(this == null){
+      return false;
+    }else{
+      if(this!.isEmpty){
+        return false;
+      }else{
+        if(this == "A" || this == "B" || this == "C" || this == "D" || this == "E"){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
+  }
+}
+
+extension ListNullExt on List?{
+  bool get isNullOrEmpty{
+    if(this == null){
+      return true;
+    }else{
+      if(this!.isEmpty){
+        return true;
+      }else{
+        return false;
+      }
+    }
   }
 }

@@ -11,4 +11,8 @@ abstract class ImageAssets{
   static const imgRegister = "assets/images/img_register.svg";
   static const imgSorry = "assets/images/img_sorry.svg";
   static const imgSuccess = "assets/images/img_success.svg";
+  static const imgQuestionMark = "assets/images/img_question_mark.svg";
+  static const imgEmpty = "assets/images/img_empty.svg";
+  static const imgCollect = "assets/images/img_collect.svg";
+  static const imgResult = "assets/images/img_result.svg";
 }

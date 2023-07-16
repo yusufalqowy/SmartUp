@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:smartup/data/core/model/network_response.dart';
 import 'package:smartup/data/core/services/firebase_auth_service.dart';
 import 'package:smartup/data/user/model/user_response.dart';
-import 'package:smartup/domain/repository/user_repository.dart';
+import 'package:smartup/domain/user/use_case/book_usecase.dart';
 import 'package:smartup/route/routes.dart';
 
 class LoginController extends GetxController{
   final FirebaseAuthService firebaseAuthService;
-  final UserRepository userRepository;
+  final UserUseCase userUseCase;
 
-  LoginController({required this.firebaseAuthService, required this.userRepository});
+  LoginController({required this.firebaseAuthService, required this.userUseCase});
 
   Rx<NetworkResponse<UserData>> login = Rx(NetworkResponse.init());
   Rx<User?> userEmail = Rx(null);
@@ -40,7 +40,7 @@ class LoginController extends GetxController{
     if (email != null) {
       login(NetworkResponse.loading());
       update();
-      var userData = await userRepository.getUserByEmail(email: email);
+      var userData = await userUseCase.getUserByEmail(email: email);
       login(userData);
       update();
     } else {

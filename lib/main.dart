@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smartup/core/utils/theme_service.dart';
 import 'package:smartup/core/values/colors.dart';
+import 'package:smartup/data/core/services/firebase_auth_service.dart';
 import 'package:smartup/route/pages.dart';
 import 'package:smartup/route/routes.dart';
 import 'core/utils/firebase_options.dart';
@@ -43,6 +44,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     var alice = Get.put(Alice());
     Get.put(GetStorage(), permanent: true);
+    Get.put<FirebaseAuthService>(FirebaseAuthServiceImpl(), permanent: true);
+
     return DynamicColorBuilder(
         builder: (lightColorScheme, darkColorScheme){
           return MediaQuery(

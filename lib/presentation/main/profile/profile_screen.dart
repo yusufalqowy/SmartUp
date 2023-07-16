@@ -1,20 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/dimens.dart';
-import 'package:smartup/core/values/images.dart';
 import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/core/values/texts.dart';
 import 'package:smartup/data/user/model/user_response.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_theme.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 import 'package:smartup/route/routes.dart';
-
-import 'profile_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -26,6 +22,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   var storage = Get.find<GetStorage>();
   UserData? _userData;
+
   @override
   void initState() {
     setState(() {
@@ -53,7 +50,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Card(
               margin: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimens.d16)),
               child: Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.all(Dimens.d16),
@@ -65,36 +63,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       alignment: Alignment.bottomCenter,
                       children: [
                         CircleAvatar(
-                          radius: 50,
-                          backgroundImage: CachedNetworkImageProvider(_userData?.userFoto??""),
+                          radius: 60,
+                          backgroundImage: CachedNetworkImageProvider(
+                              _userData?.userFoto ?? ""),
                         ),
                         Positioned(
-                          top: 70,
+                          top: 90,
                           child: IconButton(
-                              onPressed: () { Get.toNamed(Routes.editProfile);},
-
+                              onPressed: () async {
+                                await Get.toNamed(Routes.editProfile);
+                                _userData = UserData.fromRawJson(storage.read(Keys.userData));
+                              },
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(themeData(context).primaryColorDark),
-                                  shape: const MaterialStatePropertyAll(CircleBorder()),
-                                  elevation: const MaterialStatePropertyAll(8)
-
-                              ),
-                              icon: const Icon(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      colorScheme(context).primary),
+                                  shape: const MaterialStatePropertyAll(
+                                      CircleBorder()),
+                                  elevation: const MaterialStatePropertyAll(8)),
+                              padding: EdgeInsets.zero,
+                              icon: Icon(
                                 Icons.edit,
-                                color: Colors.white,
+                                color: colorScheme(context).surface,
                               )),
                         )
                       ],
                     ),
-                    const Gap(),
+                    const Gap(h: Dimens.d32,),
                     Text(
-                      _userData?.userName??"",
+                      _userData?.userName ?? "",
                       style: TextStyles.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      _userData?.userEmail??"",
-                      style: TextStyles.subTitle,
-                    ),
+                    Text(_userData?.userEmail ?? "",
+                        style: TextStyles.subTitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis),
                   ],
                 ),
               ),
@@ -102,7 +106,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Gap(),
             Card(
               margin: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimens.d16)),
               child: Padding(
                 padding: const EdgeInsets.all(Dimens.d16),
                 child: Column(
@@ -110,65 +115,87 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.person_outline, color: colorScheme(context).primary,),
+                        Icon(
+                          Icons.person_outline,
+                          color: colorScheme(context).primary,
+                        ),
                         const Gap(
                           w: Dimens.d16,
                         ),
-                        Text(
-                          _userData?.userName??"",
-                          style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(_userData?.userName ?? "",
+                              style: TextStyles.body2Text
+                                  .copyWith(fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
                         ),
                       ],
                     ),
                     const Gap(),
                     Row(
                       children: [
-                        Icon(Icons.mail_outline, color: colorScheme(context).primary,),
+                        Icon(
+                          Icons.mail_outline,
+                          color: colorScheme(context).primary,
+                        ),
                         const Gap(
                           w: Dimens.d16,
                         ),
                         Text(
-                          _userData?.userEmail??"",
-                          style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
+                          _userData?.userEmail ?? "",
+                          style: TextStyles.body2Text
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     const Gap(),
                     Row(
                       children: [
-                        Icon(Icons.people_alt_outlined, color: colorScheme(context).primary,),
+                        Icon(
+                          Icons.people_alt_outlined,
+                          color: colorScheme(context).primary,
+                        ),
                         const Gap(
                           w: Dimens.d16,
                         ),
                         Text(
-                          _userData?.userGender??"",
-                          style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
+                          _userData?.userGender ?? "",
+                          style: TextStyles.body2Text
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     const Gap(),
                     Row(
                       children: [
-                        Icon(Icons.class_outlined, color: colorScheme(context).primary,),
+                        Icon(
+                          Icons.class_outlined,
+                          color: colorScheme(context).primary,
+                        ),
                         const Gap(
                           w: Dimens.d16,
                         ),
                         Text(
-                          _userData?.kelas??"",
-                          style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
+                          _userData?.kelas ?? "",
+                          style: TextStyles.body2Text
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     const Gap(),
                     Row(
                       children: [
-                        Icon(Icons.school_outlined, color: colorScheme(context).primary,),
+                        Icon(
+                          Icons.school_outlined,
+                          color: colorScheme(context).primary,
+                        ),
                         const Gap(
                           w: Dimens.d16,
                         ),
                         Text(
-                          _userData?.userAsalSekolah??"",
-                          style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),
+                          _userData?.userAsalSekolah ?? "",
+                          style: TextStyles.body2Text
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
                     )
@@ -179,17 +206,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Gap(),
             Card(
               margin: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimens.d16)),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: InkWell(
-                onTap: (){Get.bottomSheet(const BottomSheetSelectTheme(), backgroundColor: colorScheme(context).surface);},
+                onTap: () {
+                  Get.bottomSheet(const BottomSheetSelectTheme(),
+                      backgroundColor: colorScheme(context).surface);
+                },
                 child: Container(
                   padding: const EdgeInsets.all(Dimens.d16),
                   child: Row(
                     children: [
-                      Icon(Icons.theater_comedy_outlined, color: colorScheme(context).primary,),
-                      const Gap(w: Dimens.d16,),
-                      Text(Texts.textTema, style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),)
+                      Icon(
+                        Icons.theater_comedy_outlined,
+                        color: colorScheme(context).primary,
+                      ),
+                      const Gap(
+                        w: Dimens.d16,
+                      ),
+                      Text(
+                        Texts.textTema,
+                        style: TextStyles.body2Text
+                            .copyWith(fontWeight: FontWeight.bold),
+                      )
                     ],
                   ),
                 ),
@@ -198,17 +238,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Gap(),
             Card(
               margin: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimens.d16)),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: InkWell(
-                onTap: (){Get.offNamed(Routes.login);},
+                onTap: () => Get.toNamed(Routes.aboutApp),
                 child: Container(
                   padding: const EdgeInsets.all(Dimens.d16),
                   child: Row(
                     children: [
-                      const Icon(Icons.logout_outlined, color: Colors.red,),
-                      const Gap(w: Dimens.d16,),
-                      Text(Texts.textLogout, style: TextStyles.body2Text.copyWith(fontWeight: FontWeight.bold),)
+                      Icon(
+                        Icons.info_outline,
+                        color: colorScheme(context).primary,
+                      ),
+                      const Gap(
+                        w: Dimens.d16,
+                      ),
+                      Text(
+                        "Tentang Aplikasi",
+                        style: TextStyles.body2Text
+                            .copyWith(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const Gap(),
+            Card(
+              margin: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimens.d16)),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: InkWell(
+                onTap: () {
+                  Get.offNamed(Routes.login);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(Dimens.d16),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.logout_outlined,
+                        color: Colors.red,
+                      ),
+                      const Gap(
+                        w: Dimens.d16,
+                      ),
+                      Text(
+                        Texts.textLogout,
+                        style: TextStyles.body2Text
+                            .copyWith(fontWeight: FontWeight.bold),
+                      )
                     ],
                   ),
                 ),
