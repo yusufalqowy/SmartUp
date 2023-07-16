@@ -1,16 +1,8 @@
 # Smart Up
 
 Aplikasi untuk latihan soal dan diskusi soal.
+Aplikasi <b>Smart Up</b> merupakan aplikasi yang dibuat dengan Flutter dan untuk memenuhi final project Bootcamp Flutter Edspert.id.</p>
+             <p>Ilustrasi didalam aplikasi ini bersumber dari Storyset by freepik. Kunjungi <a href="https://storyset.com/">storyset.com</a>.</p>
+             <p>Developed by<br /><b>Muhammad Yusuf Alqowy</b></p>
+             <p><a href="https://www.linkedin.com/in/yusufalqowy/">LinkedIn</a> <a href="https://github.com/yusufalqowy">Github</a> <a href="https://dribbble.com/yusufalqowy">Dribbble</a>&nbsp;<a href="https://www.instagram.com/yusufalqowy/">Instagram</a>&nbsp;</p>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
