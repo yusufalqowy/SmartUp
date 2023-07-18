@@ -98,34 +98,54 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             ref.putFile(File(path)).snapshotEvents.listen((event) async {
                                               if(event.state == TaskState.success){
                                                 var url = await ref.getDownloadURL();
-                                                setState(() {
-                                                  imageUrl = url;
-                                                });
-                                                LoadingDialog.dismissLoading();
+                                                var requestBody = UserBody(
+                                                  fullName: userData?.userName ?? "",
+                                                  email: userData?.userEmail ?? "",
+                                                  schoolName: userData?.userAsalSekolah ?? "",
+                                                  schoolGrade: userData?.kelas ?? "",
+                                                  gender: userData?.userGender ?? "",
+                                                  photoUrl: url,
+                                                );
+                                                var response = await controller.updateProfileImage(requestBody: requestBody);
+                                                if(response.status.isSuccess){
+                                                  storage.write(Keys.userData, response.data?.encodeToJson());
+                                                  setState(() {
+                                                    imageUrl = url;
+                                                  });
+                                                }else if(response.status.isError){
+                                                  LoadingDialog.dismissLoading();
+                                                  Get.showSnackbar(
+                                                    GetSnackBar(
+                                                      title: "Terjadi Kesalahan",
+                                                      message: response.message?.replaceFirst("error, ","") ?? "",
+                                                      backgroundColor: Colors.redAccent,
+                                                      icon: const Icon(Icons.error),
+                                                      duration: const Duration(seconds: 3),
+                                                    ),
+                                                  );
+                                                }
                                               }else if(event.state == TaskState.error){
                                                 LoadingDialog.dismissLoading();
-                                                throw Exception("Gagal upload file!");
+                                                Get.showSnackbar(
+                                                  const GetSnackBar(
+                                                    title: "Terjadi Kesalahan",
+                                                    message: "Gagal upload gambar!",
+                                                    backgroundColor: Colors.redAccent,
+                                                    icon: Icon(Icons.error),
+                                                    duration: Duration(seconds: 3),
+                                                  ),
+                                                );
                                               }
                                             });
                                           }catch(e){
-                                            LoadingDialog.dismissLoading();
-                                            Get.bottomSheet(
-                                                BottomSheetAlert(
-                                                  title: "Error",
-                                                  message: e.toString() ?? "Unknown Error",
-                                                  image: SvgPicture.asset(
-                                                    ImageAssets.imgSorry,
-                                                    fit: BoxFit.fitHeight,
-                                                    height: 150,
-                                                  ),
-                                                  negativeButton: FilledButton.tonal(
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    child: const Text("Tutup"),
-                                                  ),
-                                                ),
-                                                backgroundColor: colorScheme(context).surface);
+                                            Get.showSnackbar(
+                                              GetSnackBar(
+                                                title: "Terjadi Kesalahan",
+                                                message: e.toString(),
+                                                icon: const Icon(Icons.error),
+                                                duration: const Duration(seconds: 3),
+                                              ),
+                                            );
                                           }
                                         }
                                       }
@@ -348,7 +368,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         break;
       case NetworkStatus.success:
         LoadingDialog.dismissLoading();
-        userResponse.data?.encodeToJson();
         storage.write(Keys.userData, userResponse.data?.encodeToJson());
         Get.bottomSheet(
             BottomSheetAlert(
@@ -373,7 +392,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         Get.bottomSheet(
             BottomSheetAlert(
               title: "Error",
-              message: userResponse.message ?? "Unknown Error",
+              message: userResponse.message?.replaceFirst("error, ", "") ?? "Unknown Error",
               image: SvgPicture.asset(
                 ImageAssets.imgSorry,
                 fit: BoxFit.fitHeight,

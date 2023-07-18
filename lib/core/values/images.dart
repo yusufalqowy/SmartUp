@@ -15,4 +15,6 @@ abstract class ImageAssets{
   static const imgEmpty = "assets/images/img_empty.svg";
   static const imgCollect = "assets/images/img_collect.svg";
   static const imgResult = "assets/images/img_result.svg";
+  static const imgDiscussion = "assets/images/img_discussion.svg";
+  static const icGroupMessage = "assets/images/ic_group_message.svg";
 }

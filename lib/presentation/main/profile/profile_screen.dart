@@ -8,6 +8,7 @@ import 'package:smartup/core/values/dimens.dart';
 import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/core/values/texts.dart';
 import 'package:smartup/data/user/model/user_response.dart';
+import 'package:smartup/presentation/main/profile/profile_controller.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_theme.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 import 'package:smartup/route/routes.dart';
@@ -22,6 +23,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   var storage = Get.find<GetStorage>();
   UserData? _userData;
+  ProfileController controller = Get.find();
 
   @override
   void initState() {
@@ -271,9 +273,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(Dimens.d16)),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: InkWell(
-                onTap: () {
-                  Get.offNamed(Routes.login);
-                },
+                onTap: () => logout(),
                 child: Container(
                   padding: const EdgeInsets.all(Dimens.d16),
                   child: Row(
@@ -294,10 +294,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-            )
+            ),
+            const Gap(h: Dimens.d32,)
           ],
         ),
       ),
     );
+  }
+
+  logout() async {
+    storage.erase();
+    await controller.logOut(isGotoLogin: true);
   }
 }

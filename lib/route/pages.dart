@@ -1,3 +1,4 @@
+import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:smartup/data/course/model/exercise_result.dart';
 import 'package:smartup/presentation/auth/login/login_binding.dart';
 import 'package:smartup/presentation/auth/login/login_screen.dart';
@@ -10,8 +11,10 @@ import 'package:smartup/presentation/exercise/exercise_list/exercise_screen.dart
 import 'package:smartup/presentation/exercise/exercise_question/exercise_question_binding.dart';
 import 'package:smartup/presentation/exercise/exercise_question/exercise_question_screen.dart';
 import 'package:smartup/presentation/exercise/exercise_result/exercise_result_screen.dart';
+import 'package:smartup/presentation/main/discussion/chat/chat_screen.dart';
 import 'package:smartup/presentation/main/discussion/discussion_binding.dart';
 import 'package:smartup/presentation/main/discussion/discussion_screen.dart';
+import 'package:smartup/presentation/main/discussion/group/group_screen.dart';
 import 'package:smartup/presentation/main/home/home_binding.dart';
 import 'package:smartup/presentation/main/main_binding.dart';
 import 'package:smartup/presentation/main/main_screen.dart';
@@ -38,5 +41,7 @@ abstract class Pages {
     GetPage(name: Routes.exerciseQuestion, page: () => const ExerciseQuestionScreen(), binding: ExerciseQuestionBinding(), transition: Transition.leftToRightWithFade, arguments: ExerciseQuestionArgs),
     GetPage(name: Routes.exerciseResult, page: () => const ExerciseResultScreen(), transition: Transition.leftToRightWithFade, arguments: Result),
     GetPage(name: Routes.aboutApp, page: () => const AboutScreen(), transition: Transition.leftToRightWithFade),
+    GetPage(name: Routes.discussionChat, page: () => const ChatScreen(), transition: Transition.leftToRightWithFade, arguments: Room),
+    GetPage(name: Routes.discussionGroup, page: () => const GroupScreen(), transition: Transition.leftToRightWithFade),
   ];
 }

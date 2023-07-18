@@ -60,6 +60,15 @@ dependencies:
   shimmer: ^3.0.0
   flutter_widget_from_html: ^0.10.3
   scrollable_positioned_list: ^0.3.8
+  flutter_firebase_chat_core: ^1.6.7
+  flutter_chat_ui: ^1.6.9
+  flutter_chat_types: ^3.6.2
+  http: ^1.1.0
+  file_picker: ^5.3.2
+  open_filex: ^4.3.2
+  mime: ^1.0.4
+  path_provider: ^2.0.15
+  cloud_firestore: ^4.8.3
 
 dev_dependencies:
   flutter_test:

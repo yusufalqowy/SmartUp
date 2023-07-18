@@ -31,7 +31,7 @@ class BannerApiServiceImpl implements BannerApiService{
       }else{
         return NetworkResponse.error(message: response.statusMessage);
       }
-    }catch(e){
+    } on Exception catch(e){
       return NetworkResponse.error(message: e.toString());
     }
   }

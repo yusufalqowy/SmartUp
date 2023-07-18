@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as Chat;
 import 'package:smartup/data/core/model/network_response.dart';
 import 'package:smartup/data/core/services/firebase_auth_service.dart';
 import 'package:smartup/data/user/model/user_response.dart';
@@ -42,6 +44,20 @@ class LoginController extends GetxController{
       update();
       var userData = await userUseCase.getUserByEmail(email: email);
       login(userData);
+      if(login.value.status.isSuccess){
+        var user = userData.data;
+        var name = userData.data?.userName?.split(" ");
+        String lastName = "";
+        name?.getRange(1, name.length).forEach((element) { lastName += "$element "; });
+        await FirebaseChatCore.instance.createUserInFirestore(
+          Chat.User(
+            firstName: name?.first ?? "",
+            id: FirebaseChatCore.instance.firebaseUser?.uid ?? "",
+            imageUrl: user?.userFoto,
+            lastName: lastName.isEmpty ? null : lastName.trimRight(),
+          ),
+        );
+      }
       update();
     } else {
       login(NetworkResponse.error(message: "Terjadi kesalahan, mohon coba lagi!"));

@@ -9,11 +9,11 @@ import 'gap.dart';
 
 class BottomSheetAlert extends StatefulWidget {
   final String title;
-  final String message;
+  final String? message;
   final Widget image;
   final Widget? positiveButton;
   final Widget? negativeButton;
-  const BottomSheetAlert({super.key, required this.title, required this.message, required this.image, this.positiveButton, this.negativeButton});
+  const BottomSheetAlert({super.key, required this.title, this.message, required this.image, this.positiveButton, this.negativeButton});
 
   @override
   State<BottomSheetAlert> createState() => _BottomSheetAlertState();
@@ -43,11 +43,11 @@ class _BottomSheetAlertState extends State<BottomSheetAlert> {
         const Gap(h: Dimens.d8,),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Dimens.d16),
-          child: Text(widget.title.capitalize ?? "", style: TextStyles.title, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis,),
+          child: Text(widget.title ?? "", style: TextStyles.title, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis,),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Dimens.d16),
-          child: Text(widget.message.capitalizeFirst ?? "", style: TextStyles.body2Text, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
+          child: Text(widget.message ?? "", style: TextStyles.body2Text, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
         ),
         const Gap(),
         widget.positiveButton != null || widget.negativeButton != null ? Padding(

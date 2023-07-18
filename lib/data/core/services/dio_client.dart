@@ -40,10 +40,11 @@ class DioClientImpl implements DioClient {
         queryParameters: queryParameters,
       );
       return response;
-    } on DioException catch (e) {
-      if (e.response?.data != null) throw Exception(e.response?.data);
-
-      throw Exception(e.message);
+    } catch (e) {
+      if(e is DioException){
+        if (e.response?.data != null) throw Exception(e.response?.data);
+      }
+      throw Exception(e);
     }
   }
 
@@ -57,10 +58,11 @@ class DioClientImpl implements DioClient {
       final response = await _dio.post<T>(url, data: body);
 
       return response;
-    } on DioException catch (e) {
-      if (e.response?.data != null) throw Exception(e.response?.data);
-
-      throw Exception(e.message);
+    } catch (e) {
+      if(e is DioException){
+        if (e.response?.data != null) throw Exception(e.response?.statusMessage);
+      }
+      throw Exception(e);
     }
   }
 }

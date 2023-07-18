@@ -6,6 +6,8 @@ abstract class Routes{
   static const home = "$main/home";
   static const profile = "$main/profile";
   static const discussion = "$main/discussion";
+  static const discussionChat = "$discussion/chat";
+  static const discussionGroup = "$discussion/group";
   static const course = "/course";
   static const exercise = "$course/exercise";
   static const exerciseQuestion = "$course/exercise/question";

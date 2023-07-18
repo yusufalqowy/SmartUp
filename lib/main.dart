@@ -63,6 +63,7 @@ class _MyAppState extends State<MyApp> {
                 fontFamily: "Rubik",
                 useMaterial3: true,
               ),
+              debugShowCheckedModeBanner: false,
               themeMode: ThemeService().theme,
               initialRoute: Routes.splash,
               getPages: Pages.pages,
