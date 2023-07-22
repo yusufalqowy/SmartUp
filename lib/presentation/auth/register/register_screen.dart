@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         LoadingDialog.dismissLoading();
         userResponse.data?.encodeToJson();
         storage.write(Keys.userData, userResponse.data?.encodeToJson());
-        Get.offAllNamed(Routes.main);
+        Future.delayed(600.milliseconds,()=>Get.offAllNamed(Routes.main));
         break;
       case NetworkStatus.error:
         LoadingDialog.dismissLoading();

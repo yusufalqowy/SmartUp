@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/colors.dart';
+import 'package:smartup/core/values/dimens.dart';
 import 'package:smartup/core/values/images.dart';
 import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/route/routes.dart';
@@ -38,8 +40,16 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.primary,
-      body: Center(
-        child: SvgPicture.asset(ImageAssets.icLogoSmartUp, width: 150, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),),
+      body: Stack(
+        children: [
+          Center(
+            child: SvgPicture.asset(ImageAssets.icLogoSmartUp, width: 150, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(margin:const EdgeInsets.only(bottom: Dimens.d16), child: const Text("sup.id", style: TextStyles.subTitle,))
+          )
+        ],
       ),
     );
   }

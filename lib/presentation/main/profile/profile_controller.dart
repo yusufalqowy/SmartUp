@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:smartup/data/core/services/firebase_auth_service.dart';
 import 'package:smartup/route/routes.dart';

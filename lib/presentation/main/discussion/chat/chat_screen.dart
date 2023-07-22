@@ -204,13 +204,11 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Chat'),
+          title: Text(room.name ?? "Obrolan"),
           actions: [
             PopupMenuButton<int>(
                 itemBuilder:(context) => const [PopupMenuItem(value: 1, child: Text("Keluar Grup"))],
-                onCanceled: ()=>print("cancel"),
                 onSelected: (item){
-                  print(item);
                   Get.bottomSheet(
                       BottomSheetAlert(
                         title: 'Keluar dari Grup "${room.name}"?',

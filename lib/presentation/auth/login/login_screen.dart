@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -145,9 +146,7 @@ class LoginScreen extends GetView<LoginController> {
                     const Gap(),
                     SignInButton(
                         buttonType: ButtonType.appleDark,
-                        onPressed: () {
-                          Get.toNamed(Routes.register);
-                        },
+                        onPressed: () {kDebugMode ? Get.toNamed(Routes.register) : Get.showSnackbar(const GetSnackBar(title: "Informasi", message: "Fitur belum tersedia!",));},
                         btnText: Texts.textBtnMasukDenganApple,
                         width: double.maxFinite,
                         padding: Dimens.d16),

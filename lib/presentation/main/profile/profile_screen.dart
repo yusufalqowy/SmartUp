@@ -1,14 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smartup/core/styles/colors.dart';
 import 'package:smartup/core/styles/text_style.dart';
 import 'package:smartup/core/values/dimens.dart';
+import 'package:smartup/core/values/images.dart';
 import 'package:smartup/core/values/keys.dart';
 import 'package:smartup/core/values/texts.dart';
 import 'package:smartup/data/user/model/user_response.dart';
 import 'package:smartup/presentation/main/profile/profile_controller.dart';
+import 'package:smartup/presentation/widgets/bottom_sheet_alert.dart';
 import 'package:smartup/presentation/widgets/bottom_sheet_theme.dart';
 import 'package:smartup/presentation/widgets/gap.dart';
 import 'package:smartup/route/routes.dart';
@@ -303,7 +306,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   logout() async {
-    storage.erase();
-    await controller.logOut(isGotoLogin: true);
+    Get.bottomSheet(
+        BottomSheetAlert(
+          title: "Apakah anda ingin keluar?",
+          image: SvgPicture.asset(ImageAssets.imgQuestionMark,
+            fit: BoxFit.fitHeight,
+            height: 150,
+          ),
+          negativeButton: FilledButton.tonal(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text("Tidak"),
+          ),
+          positiveButton: FilledButton(
+            onPressed: () async {
+              storage.erase();
+              await controller.logOut(isGotoLogin: true);
+            },
+            child: const Text("Iya"),
+          ),
+        )
+    , backgroundColor: colorScheme(context).surface);
   }
 }

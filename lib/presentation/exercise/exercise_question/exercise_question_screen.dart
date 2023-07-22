@@ -184,10 +184,13 @@ class _ExerciseQuestionScreenState extends State<ExerciseQuestionScreen> {
                       child: FilledButton(
                     onPressed: () {
                       if(ctrl.page.value == ctrl.listQuestion.length-1){
+                        var answer = ctrl.listQuestion.map((e) => e.studentAnswer).toList();
+                        var isNotAnswered = answer.where((element) => !element.isAcceptAnswer).isNotEmpty;
+                        var message = isNotAnswered ? "Kamu masih ada soal yang belum di jawab loh" : "Boleh langsung kumpulin dong";
                         Get.bottomSheet(
                             BottomSheetAlert(
                               title: "Kumpulkan latihan soal sekarang?",
-                              message: "Boleh langsung kumpulin dong",
+                              message: message,
                               image: SvgPicture.asset(
                                 ImageAssets.imgCollect,
                                 fit: BoxFit.fitHeight,
